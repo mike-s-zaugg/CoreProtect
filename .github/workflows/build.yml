@@ -22,7 +22,10 @@ jobs:
           distribution: 'temurin'
           cache: 'maven'
       - name: Build
-        run: mvn -B verify
+        run: mvn -B verify -Dproject.branch=development
+      - name: Check plugin.yml branch
+        run: |
+          unzip -p target/CoreProtect-*.jar plugin.yml | grep -E '^branch: [^ $]+'
       - name: Upload plugin jar
         uses: actions/upload-artifact@v7
         with:
